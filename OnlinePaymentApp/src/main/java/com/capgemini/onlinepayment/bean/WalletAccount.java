@@ -56,4 +56,8 @@ public String toString() {
 	return "WalletAccount [accountId=" + accountId + ", accountBalance=" + accountBalance + ", transactionHistory="
 			+ transactionHistory + "]";
 }
+public WalletAccount() {
+	super();
 }
+}
+	

@@ -86,5 +86,9 @@ public class WalletTransactions {
 		this.amount = amount;
 		this.amountBalance = amountBalance;
 	}
+	public WalletTransactions() {
+		super();
+	}
+	
 }
 	
