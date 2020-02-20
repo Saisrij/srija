@@ -27,10 +27,10 @@ public class ClientDAO implements IOnlinePaymentDAO {
 		list.add(new WalletTransactions());
 		list.add(new WalletTransactions());
 		list.add(new WalletTransactions());
-		map.put(101, new WalletAccount(101, 9000, list));
-		map.put(102, new WalletAccount(102, 20000, list));
-		map.put(103, new WalletAccount(103, 50000, list));
-		map.put(104, new WalletAccount(104, 4000, list));
+		map.put(123456789, new WalletAccount(123456789, 9000, list));
+		map.put(234567891, new WalletAccount(234567891, 20000, list));
+		map.put(345678912, new WalletAccount(345678912, 50000, list));
+		map.put(456789012, new WalletAccount(456789012, 4000, list));
 		return false;
 	}
 }

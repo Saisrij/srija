@@ -1,13 +1,15 @@
 package com.capgemini.onlinepaymentapp.service;
 
+import java.util.Map;
+
 import com.capgemini.onlinepayment.bean.WalletAccount;
 import com.capgemini.onlinepaymentapp.dao.ClientDAO;
 import com.capgemini.onlinepaymentapp.dao.IOnlinePaymentDAO;
 
 public class ClientService implements IOnlinePaymentService {
 
-	IOnlinePaymentDAO Number = new ClientDAO();
-	 static double amount;
+	ClientDAO Number = new ClientDAO();
+	 
 	
 	
 	/**
@@ -21,8 +23,14 @@ public class ClientService implements IOnlinePaymentService {
 	/**
 	 * @param number the number to set
 	 */
-	public void setNumber(IOnlinePaymentDAO number) {
+	public void setNumber(ClientDAO number) {
 		Number = number;
+	}
+	public void setMap(Map<Integer, WalletAccount> map) {
+		Number.setMap(map);
+	}
+	public Map<Integer, WalletAccount> getMap() {
+		return Number.getMap();
 	}
 
 
@@ -32,9 +40,12 @@ public class ClientService implements IOnlinePaymentService {
 	}
 public static boolean isValidAccountId(int accountId) {
 		boolean flag = false;
-	if ( accountId!= 0 && accountId >99 && accountId < 1000) {
-		flag = true;
-		}
+		String account = accountId+"";
+		flag = account.matches("[1-9][0-9]{8}");
+		/*
+		 * if ( accountId!= 0 && accountId >99 && accountId < 1000) { flag = true; }
+		 * return flag;
+		 */
 		return flag;
 	}
 
@@ -45,7 +56,7 @@ public static boolean isValidAccountId(int accountId) {
 		}
 		return flag;
 	}
-	public static boolean isValidTransferAmount(double accountBalance) {
+	public static boolean isValidTransferAmount(double accountBalance,double amount) {
 		boolean flag = false;
 		if (accountBalance>=amount) {
 			flag = true;
@@ -53,10 +64,10 @@ public static boolean isValidAccountId(int accountId) {
 		return flag;
 }
 
-	public static  boolean userValidations(WalletAccount c) {
+	public static  boolean userValidations(WalletAccount c,double amount) {
 		boolean flag = false;
 
-		if (isValidAccountBalance(c.getAccountId()) && (isValidAccountBalance(c.getAccountBalance())&&(isValidTransferAmount(c.getAccountBalance())))) {
+		if (isValidAccountId(c.getAccountId()) && (isValidAccountBalance(c.getAccountBalance())&&(isValidTransferAmount(c.getAccountBalance(),amount)))) {
 			flag = true;
 		}
 	return flag;	
