@@ -1,5 +1,9 @@
 package com.capgemini.onlinepaymentapp.service;
 
+import com.capgemini.onlinepayment.bean.WalletAccount;
+
 public interface IOnlinePaymentService {
-boolean fundTransfer();
+	void doFundTransfer();
+
+	WalletAccount getWalletByAccountId(int accountId);
 }

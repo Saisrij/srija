@@ -9,28 +9,32 @@ import com.capgemini.onlinepayment.bean.WalletAccount;
 import com.capgemini.onlinepayment.bean.WalletTransactions;
 
 public class ClientDAO implements IOnlinePaymentDAO {
-	List<WalletTransactions> list = new ArrayList<WalletTransactions>();
-	List<Integer> l = new ArrayList<Integer>();
+	
+	List<WalletTransactions> walletTransactions = new ArrayList<WalletTransactions>();
 
-	Map<Integer, WalletAccount> map = new HashMap<Integer, WalletAccount>();
+	private Map<Integer, WalletAccount> accountIdWalletMap = new HashMap<Integer, WalletAccount>();
 
-	public Map<Integer, WalletAccount> getMap() {
-		return map;
-	}
-
-	public void setMap(Map<Integer, WalletAccount> map) {
-		this.map = map;
-	}
-
-	public boolean fundTransfer() {
-		list.add(new WalletTransactions());
-		list.add(new WalletTransactions());
-		list.add(new WalletTransactions());
-		list.add(new WalletTransactions());
-		map.put(123456789, new WalletAccount(123456789, 9000, list));
-		map.put(234567891, new WalletAccount(234567891, 20000, list));
-		map.put(345678912, new WalletAccount(345678912, 50000, list));
-		map.put(456789012, new WalletAccount(456789012, 4000, list));
+	public boolean doFundTransfer() {
+		walletTransactions.add(new WalletTransactions());
+		walletTransactions.add(new WalletTransactions());
+		walletTransactions.add(new WalletTransactions());
+		walletTransactions.add(new WalletTransactions());
+		accountIdWalletMap.put(123456789, new WalletAccount(123456789, 9000, walletTransactions));
+		accountIdWalletMap.put(234567891, new WalletAccount(234567891, 20000, walletTransactions));
+		accountIdWalletMap.put(345678912, new WalletAccount(345678912, 50000, walletTransactions));
+		accountIdWalletMap.put(456789012, new WalletAccount(456789012, 4000, walletTransactions));
 		return false;
+	}
+
+	public WalletAccount getWalletByAccountId(int accountId) {
+		if (accountIdWalletMap.containsKey(accountId)) {
+			return accountIdWalletMap.get(accountId);
+		}
+		return null;
+	}
+	
+	public void updateWalletMap(int accountNumber, WalletAccount a)
+	{
+		accountIdWalletMap.put(accountNumber, a);
 	}
 }
